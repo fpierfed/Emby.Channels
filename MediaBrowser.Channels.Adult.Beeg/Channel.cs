@@ -101,7 +101,11 @@ namespace MediaBrowser.Channels.Adult.Beeg
             var items = new List<ChannelItemInfo>();
             var page = new HtmlDocument();
 
-            using (var site = await _httpClient.Get("http://www.beeg.com/", CancellationToken.None).ConfigureAwait(false))
+            using (var site = await _httpClient.Get(new HttpRequestOptions() 
+		   {
+		   	Url = "http://www.beeg.com/", 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 page.Load(site, Encoding.UTF8);
                 if (page.DocumentNode != null)
@@ -132,7 +136,11 @@ namespace MediaBrowser.Channels.Adult.Beeg
         {
             var items = new List<ChannelItemInfo>();
 
-            using (var site = await _httpClient.Get(query.FolderId, CancellationToken.None).ConfigureAwait(false))
+            using (var site = await _httpClient.Get(new HttpRequestOptions() 
+		   {
+		   	Url = query.FolderId, 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 using (var reader = new StreamReader(site))
                 {
@@ -171,7 +179,11 @@ namespace MediaBrowser.Channels.Adult.Beeg
 
         public async Task<IEnumerable<ChannelMediaInfo>> GetChannelItemMediaInfo(string id, CancellationToken cancellationToken)
         {
-            using (var site = await _httpClient.Get("http://www.beeg.com/" + id, CancellationToken.None).ConfigureAwait(false))
+            using (var site = await _httpClient.Get(new HttpRequestOptions()
+		   {
+		   	Url = "http://www.beeg.com/" + id, 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 using (var reader = new StreamReader(site))
                 {

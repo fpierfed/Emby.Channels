@@ -49,7 +49,11 @@ namespace MediaBrowser.Channels.iPlayer
             {
                 using (
                     XmlReader reader =
-                        new SyndicationFeedXmlReader(await _httpClient.Get(url, cancellationToken).ConfigureAwait(false))
+                        new SyndicationFeedXmlReader(await _httpClient.Get(new HttpRequestOptions()
+			{
+				Url = url, 
+				CancellationToken = cancellationToken
+			}).ConfigureAwait(false))
                     )
                 {
                     _feed = SyndicationFeed.Load(reader);

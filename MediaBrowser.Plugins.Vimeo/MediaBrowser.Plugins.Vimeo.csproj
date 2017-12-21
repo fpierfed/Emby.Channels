@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <RestorePackages>false</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,15 +35,15 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MediaBrowser.Common, Version=3.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MediaBrowser.Common, Version=3.2.60.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediaBrowser.Common.3.0.697\lib\portable-net45+win8+wpa81\MediaBrowser.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MediaBrowser.Controller, Version=3.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MediaBrowser.Controller, Version=3.2.60.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediaBrowser.Server.Core.3.0.697\lib\net45\MediaBrowser.Controller.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MediaBrowser.Model, Version=3.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MediaBrowser.Model, Version=3.2.60.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediaBrowser.Common.3.0.697\lib\portable-net45+win8+wpa81\MediaBrowser.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -105,9 +105,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)\..\Emby.dev\ProgramData-Server\Plugins\" /y</PostBuildEvent>
+    <PostBuildEvent>echo xcopy "$(TargetPath)" "$(SolutionDir)\..\Emby.dev\ProgramData-Server\Plugins\" /y</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -104,7 +104,11 @@ namespace MediaBrowser.Channels.iPlayer
             var page = new HtmlDocument();
             var items = new List<ChannelItemInfo>();
 
-            using (var site = await _httpClient.Get(query.FolderId, CancellationToken.None).ConfigureAwait(false))
+            using (var site = await _httpClient.Get(new HttpRequestOptions() 
+		   {
+		   	Url = query.FolderId, 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 page.Load(site, Encoding.UTF8);
 

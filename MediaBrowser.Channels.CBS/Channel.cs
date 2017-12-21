@@ -104,7 +104,11 @@ namespace MediaBrowser.Channels.CBS
         {
             var items = new List<ChannelItemInfo>();
 
-            using (var site = await _httpClient.Get(String.Format("http://www.cbs.com/carousels/showsByCategory/{0}/offset/0/limit/99/", query.FolderId), CancellationToken.None).ConfigureAwait(false))
+            using (var site = await _httpClient.Get(new HttpRequestOptions() 
+		   {
+		   	Url = String.Format("http://www.cbs.com/carousels/showsByCategory/{0}/offset/0/limit/99/", query.FolderId), 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 var showList = _jsonSerializer.DeserializeFromStream<ShowList>(site);
 
@@ -139,7 +143,11 @@ namespace MediaBrowser.Channels.CBS
             var page = new HtmlDocument();
             var items = new List<ChannelItemInfo>();
 
-            using (var site = await _httpClient.Get(query.FolderId, CancellationToken.None).ConfigureAwait(false))
+            using (var site = await _httpClient.Get(new HttpRequestOptions()
+		   {
+		   	Url = query.FolderId, 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 page.Load(site);
 
@@ -154,8 +162,11 @@ namespace MediaBrowser.Channels.CBS
                     var url = String.Format("http://www.cbs.com/carousels/videosBySection/{0}/offset/0/limit/15/xs/0",
                         idSplit[2]);
                     
-                    using (var json = await _httpClient.Get(url,
-                                    CancellationToken.None).ConfigureAwait(false))
+                    using (var json = await _httpClient.Get(new HttpRequestOptions()
+			   {
+			   	Url = url,
+                                CancellationToken = CancellationToken.None
+			   }).ConfigureAwait(false))
                     {
                         var catList = _jsonSerializer.DeserializeFromStream<CategoryList>(json);
 
@@ -181,7 +192,11 @@ namespace MediaBrowser.Channels.CBS
             var page = new HtmlDocument();
             var items = new List<ChannelItemInfo>();
             _logger.Debug("URL ! : " + query.FolderId);
-            using (var json = await _httpClient.Get(query.FolderId, CancellationToken.None).ConfigureAwait(false))
+            using (var json = await _httpClient.Get(new HttpRequestOptions()
+		   {
+		   	Url = query.FolderId, 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 var videoList = _jsonSerializer.DeserializeFromStream<CategoryList>(json);
 
@@ -218,7 +233,11 @@ namespace MediaBrowser.Channels.CBS
                         var show = v.series_title;
                         _logger.Debug("URL 2 ! : " + url);
                         using (
-                            var site = await _httpClient.Get("http://www.cbs.com" + url, CancellationToken.None).ConfigureAwait(false))
+                            var site = await _httpClient.Get(new HttpRequestOptions()
+			    {
+			    	Url = "http://www.cbs.com" + url, 
+				CancellationToken = CancellationToken.None
+			    }).ConfigureAwait(false))
                         {
                             page.Load(site);
 
@@ -251,7 +270,11 @@ namespace MediaBrowser.Channels.CBS
         {
             var page = new HtmlDocument();
             var items = new List<ChannelMediaInfo>();
-            using (var site = await _httpClient.Get(id, CancellationToken.None).ConfigureAwait(false))
+            using (var site = await _httpClient.Get(new HttpRequestOptions()
+		   {
+		   	Url = id, 
+			CancellationToken = CancellationToken.None
+		   }).ConfigureAwait(false))
             {
                 using (var reader = new StreamReader(site))
                 {
@@ -262,7 +285,11 @@ namespace MediaBrowser.Channels.CBS
 
                     _logger.Debug("Production ID : " + productionID);
 
-                    using (var xmlSite = await _httpClient.Get("http://link.theplatform.com/s/dJ5BDC/" + productionID + "?format=SMIL&Tracking=true&mbr=true", CancellationToken.None).ConfigureAwait(false))
+                    using (var xmlSite = await _httpClient.Get(new HttpRequestOptions()
+		  	   {
+			   	Url = "http://link.theplatform.com/s/dJ5BDC/" + productionID + "?format=SMIL&Tracking=true&mbr=true", 
+				CancellationToken = CancellationToken.None
+			   }).ConfigureAwait(false))
                     {
                         page.Load(xmlSite);
 

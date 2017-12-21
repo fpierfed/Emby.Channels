@@ -88,7 +88,11 @@ namespace MediaBrowser.Plugins.CNETTV
             var items = new List<ChannelItemInfo>();
 
             using (
-                var site = await _httpClient.Get("http://www.cnet.com/videos/", CancellationToken.None).ConfigureAwait(false))
+                var site = await _httpClient.Get(new HttpRequestOptions() 
+		{
+			Url = "http://www.cnet.com/videos/", 
+			CancellationToken = CancellationToken.None
+		}).ConfigureAwait(false))
             {
                 page.Load(site, Encoding.UTF8);
                 if (page.DocumentNode != null)
@@ -146,7 +150,11 @@ namespace MediaBrowser.Plugins.CNETTV
             var items = new List<ChannelItemInfo>();
 
             using (
-                var site = await _httpClient.Get("http://www.cnet.com/videos/", CancellationToken.None).ConfigureAwait(false))
+                var site = await _httpClient.Get(new HttpRequestOptions() 
+		{
+			Url = "http://www.cnet.com/videos/", 
+			CancellationToken = CancellationToken.None
+		}).ConfigureAwait(false))
             {
                 page.Load(site, Encoding.UTF8);
                 if (page.DocumentNode != null)
@@ -176,7 +184,11 @@ namespace MediaBrowser.Plugins.CNETTV
             var items = new List<ChannelItemInfo>();
 
             using (
-                var site = await _httpClient.Get("http://www.cnet.com/videos/", CancellationToken.None).ConfigureAwait(false))
+                var site = await _httpClient.Get(new HttpRequestOptions() 
+		{
+			Url = "http://www.cnet.com/videos/", 
+			CancellationToken = CancellationToken.None
+		}).ConfigureAwait(false))
             {
                 page.Load(site, Encoding.UTF8);
                 if (page.DocumentNode != null)
@@ -210,7 +222,11 @@ namespace MediaBrowser.Plugins.CNETTV
             var items = new List<ChannelItemInfo>();
 
             using (
-                var site = await _httpClient.Get("http://www.cnet.com" + query.FolderId, CancellationToken.None).ConfigureAwait(false))
+                var site = await _httpClient.Get(new HttpRequestOptions() 
+		{
+			Url = "http://www.cnet.com" + query.FolderId, 
+			CancellationToken = CancellationToken.None
+		}).ConfigureAwait(false))
             {
                 page.Load(site, Encoding.UTF8);
                 if (page.DocumentNode != null)
@@ -281,7 +297,11 @@ namespace MediaBrowser.Plugins.CNETTV
             var items = new List<ChannelMediaInfo>();
 
             using (
-                var site = await _httpClient.Get(id, CancellationToken.None).ConfigureAwait(false))
+                var site = await _httpClient.Get(new HttpRequestOptions() 
+		{
+			Url = id, 
+			CancellationToken = CancellationToken.None
+		}).ConfigureAwait(false))
             {
                 page.Load(site, Encoding.UTF8);
                 if (page.DocumentNode != null)

@@ -203,16 +203,16 @@ namespace MediaBrowser.Plugins.SoundCloud.ClientApi
             switch (method)
             {
                 case HttpMethod.Get:
-                    using (var stream = await _httpClient.Get(options).ConfigureAwait(false))
+                    using (var response = await _httpClient.Get(options).ConfigureAwait(false))
                     {
-                        return this.UnzipAndDeserialize<T>(stream, uri);
+                        return this.UnzipAndDeserialize<T>(response, uri);
                     }
 
                 case HttpMethod.Post:
 
-                    using (var stream = await _httpClient.Post(options, new Dictionary<string, string>()).ConfigureAwait(false))
+                    using (var response = await _httpClient.Post(options).ConfigureAwait(false))
                     {
-                        return this.UnzipAndDeserialize<T>(stream, uri);
+                        return this.UnzipAndDeserialize<T>(response.Content, uri);
                     }
             }
 
